@@ -10,10 +10,10 @@ import { RouterLink } from "vue-router";
     </RouterLink>
     <!-- the CTA login and sign up -->
     <div>
-      <RouterLink to="/account">
-        <button className="text-white pr-4">Account</button>
+      <RouterLink to="/">
+        <button className="text-white pr-4">Sign In</button>
       </RouterLink>
-      <RouterLink to="/signup">
+      <RouterLink to="/">
         <button
           className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white"
         >

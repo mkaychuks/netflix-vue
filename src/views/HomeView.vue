@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Main from "@/components/Main.vue";
+</script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <Main />
 </template>
