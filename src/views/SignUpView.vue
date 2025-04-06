@@ -2,10 +2,21 @@
 import { ref } from "vue";
 import { RouterLink } from "vue-router";
 
-const emailModel = ref("");
-const passwordModel = ref("");
+const emailModel = ref<string>("");
+const passwordModel = ref<string>("");
+const error = ref<string>("");
 
-const handleSubmit = () => {};
+const handleSubmit = () => {
+  error.value = "";
+  if (emailModel.value.length === 0) {
+    error.value = "Email is required";
+    return;
+  }
+  if (passwordModel.value.length === 0) {
+    error.value = "Password is required";
+    return;
+  }
+};
 </script>
 <template>
   <div class="w-full h-screen">
@@ -36,9 +47,7 @@ const handleSubmit = () => {};
               v-model="passwordModel"
             />
 
-            <!-- {error &&
-            <p class="text-red-500 font-bold">{error}</p>
-            } -->
+            <p v-if="error" class="text-red-500 font-bold">{{ error }}</p>
 
             <button class="bg-red-600 py-3 my-6 rounded font-bold">
               Sign Up
