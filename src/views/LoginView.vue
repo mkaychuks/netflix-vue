@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useAuthStore } from "@/stores/authStore";
 import { ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
 const emailModel = ref("");
 const passwordModel = ref("");
 const error = ref<string>("");
+
+const { login } = useAuthStore();
+const navigate = useRouter();
 
 const handleSubmit = () => {
   error.value = "";
@@ -15,6 +19,12 @@ const handleSubmit = () => {
   if (passwordModel.value.length === 0) {
     error.value = "Password is required";
     return;
+  }
+  try {
+    login(emailModel.value, passwordModel.value);
+    navigate.replace("/");
+  } catch (error) {
+    console.log(error);
   }
 };
 </script>
