@@ -2,6 +2,7 @@ import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
   type User,
@@ -30,5 +31,12 @@ export const useAuthStore = defineStore("authCounter", () => {
     });
   };
 
-  return { user, logout, login, signUp };
+  // check for current User
+  const initAuth = async () => {
+    await onAuthStateChanged(auth, (currentUser) => {
+      user.value = currentUser;
+    });
+  };
+
+  return { user, logout, login, signUp, initAuth };
 });

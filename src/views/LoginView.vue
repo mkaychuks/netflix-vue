@@ -10,7 +10,7 @@ const error = ref<string>("");
 const { login } = useAuthStore();
 const navigate = useRouter();
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   error.value = "";
   if (emailModel.value.length === 0) {
     error.value = "Email is required";
@@ -21,7 +21,7 @@ const handleSubmit = () => {
     return;
   }
   try {
-    login(emailModel.value, passwordModel.value);
+    await login(emailModel.value, passwordModel.value);
     navigate.replace("/");
   } catch (error) {
     console.log(error);

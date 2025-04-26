@@ -1,5 +1,21 @@
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
+import { useAuthStore } from "@/stores/authStore";
+import { onMounted } from "vue";
+import { RouterLink, useRouter } from "vue-router";
+
+const { user, logout } = useAuthStore();
+const router = useRouter();
+
+const handleLogout = async () => {
+  try {
+    await logout();
+    router.push("/");
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+onMounted(() => console.log(user?.email));
 </script>
 
 <template>
@@ -9,7 +25,19 @@ import { RouterLink } from "vue-router";
       <h1 class="text-red-600 text-4xl font-bold cursor-pointer">NETFLIX</h1>
     </RouterLink>
     <!-- the CTA login and sign up -->
-    <div>
+    <div v-if="user && user.email">
+      <RouterLink to="/account">
+        <button className="text-white pr-4">Account</button>
+      </RouterLink>
+
+      <button
+        @click="handleLogout"
+        className="bg-red-600 px-6 py-2 rounded cursor-pointer text-white"
+      >
+        Logout
+      </button>
+    </div>
+    <div v-else>
       <RouterLink to="/login">
         <button className="text-white pr-4">Sign In</button>
       </RouterLink>
